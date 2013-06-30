@@ -5,11 +5,11 @@ ul {
 }
 
 #page   {
-  min-width: 550px;
+  min-width: 450px;
   width: 80%;
-  max-width:  800px;
+  max-width:  600px;
   margin:auto;
-  padding: 0px 40px 80px 40px;
+  padding: 0px 0px 80px 0px;
   border-radius: 0px 0px 7px 7px;
   font-family: 'Bad Script', cursive, serif;
 }
@@ -17,6 +17,8 @@ ul {
 body  {
   background: url(/img/background.jpg);
   background-size: cover;
+  background-position:center;
+  background-attachment:fixed;
 }
 
 #heading {
