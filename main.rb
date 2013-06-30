@@ -40,19 +40,16 @@ def update(task_id,title, content, *tags)
   run_sql(sql)
 end
 
-# get '/admin_connect' do
-
-#   haml :admin_connect
-# end
-
-# post '/admin_connect' do
-#   if params[:admin] == author_id and params['password'] == 'password'
-#     session[:admin] = true
-#     redirect "/admin"
-#   else
-#     redirect '/admin_connect'
-#   end
-# end
+post '/admin_connect' do
+  if @params['username'] == 'admin' and @params['password'] == 'password'
+    session[:admin] = :true
+    @message = "Hello #{@params['username']}."
+    redirect "/posts"
+  else
+    @message = "We could not verify your login details. Please try again."
+    redirect "/admin_connect"
+  end
+end
 
 
 # get'/admin' do

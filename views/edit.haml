@@ -1,12 +1,12 @@
 - @results.each do |result|
   %div.post
     %div.post_header
-      %input.edit_content{type: "text", value: "#{result['title']}"}
+      %input.edit_content{type: "text", name: "title", value: "#{result['title']}"}
     %div.post_body
-      %textarea.edit_content= "#{result['content']}"
+      %textarea.edit_content{ name: "content"}= "#{result['content']}"
     %div.post_footer
       %p.post_tags= "tags: "
-      %input.edit_content{type: "text", value: "#{result['tags']}"}
+      %input.edit_content{type: "text", name: "tags", value: "#{result['tags']}"}
       - if session[:admin] == :true
         %ul.post_edit
           %li
