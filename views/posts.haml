@@ -1,6 +1,7 @@
-
-%p
-  = @message
+- if @message != nil
+  %div.alert
+    %button.close{type:"button", "data-dismiss" =>"alert"} &times;
+    = @message
 - @results.each do |result|
   %div.post
     %div.post_header

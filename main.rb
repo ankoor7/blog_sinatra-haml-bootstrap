@@ -43,11 +43,25 @@ end
 post '/admin_connect' do
   if @params['username'] == 'admin' and @params['password'] == 'password'
     session[:admin] = :true
-    @message = "Hello #{@params['username']}."
-    redirect "/posts"
+    @message = "Login_successful"
   else
-    @message = "We could not verify your login details. Please try again."
-    redirect "/admin_connect"
+    session[:admin] = :false
+    @message = "Login_unsuccessful"
+  end
+  if @params['post_id'] != nil
+    redirect "/posts?message=#{@message}&post_id=#{@params['post_id']}"
+  else
+    redirect "/posts?message=#{@message}"
+  end
+end
+
+post '/admin_logout' do
+  session[:admin] = :false
+  @message = "Goodbye."
+  if @params['post_id'] != nil
+    redirect "/posts?message=#{@message}&post_id=#{@params['post_id']}"
+  else
+    redirect "/posts?message=#{@message}"
   end
 end
 
@@ -62,8 +76,8 @@ end
 get '/posts' do
   # @author_id = params["author_id"]
   # @tag = params["tag"]
-  @message = params[:message]
-  @post_id = params[:post_id].to_i
+  @message = @params[:message]
+  @post_id = @params[:post_id].to_i
   sql = "select * from posts"
   if @post_id > 0
       sql = sql + " where id = '#{@post_id}'"
