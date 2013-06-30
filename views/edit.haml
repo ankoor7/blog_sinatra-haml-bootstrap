@@ -1,0 +1,17 @@
+- @results.each do |result|
+  %div.post
+    %div.post_header
+      %input.edit_content{type: "text", value: "#{result['title']}"}
+    %div.post_body
+      %textarea.edit_content= "#{result['content']}"
+    %div.post_footer
+      %p.post_tags= "tags: "
+      %input.edit_content{type: "text", value: "#{result['tags']}"}
+      - if session[:admin] == :true
+        %ul.post_edit
+          %li
+            %a{href: "/edit?post_id=#{result['id']}"}
+              Update
+          %li
+            %a{href: "/posts"}
+              Cancel
