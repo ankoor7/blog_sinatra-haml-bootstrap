@@ -1,22 +1,23 @@
 - @results.each do |result|
   %div.post
-    %div.post_header
-      %a{href: "/posts?post_id=#{result['id']}"}
-        %h2.post_title= result['title']
-    %div.post_body
-      %p= result['content']
-    %div.post_footer
-      %p.post_tags
-        = "tags: "
-        %ul.post_tags
-          - result['tags'].split(", ").each do |t|
-            %li #{t}
-      %p.post_date= result['creation_date'].split(//).first(16).join
+    %div.post_header.clearfix
+      %div.post_title
+        %a{href: "/posts?post_id=#{result['id']}"}
+          %h2= result['title']
       - if session[:admin] == :true
-        %ul.post_admin
+        %ul.post_admin_menu
           %li
             %a{href: "/edit?post_id=#{result['id']}"}
               Edit
           %li
             %a{href: "/delete?post_id=#{result['id']}"}
               Delete
+    %div.post_body
+      %p= result['content']
+    %div.post_footer.clearfix
+      %p.post_date= result['creation_date'].split(//).first(16).join
+      %p.post_tags
+        tags:
+        %ul.tags_list
+          - result['tags'].split(", ").each do |t|
+            %li #{t}

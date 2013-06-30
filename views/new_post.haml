@@ -2,14 +2,15 @@
   %div.edit_body
     %form{name: "create", method: "post", action: "/create"}
       %input.edit_content{type: "text", name: "title", placeholder: "Title"}
+      %br
       %textarea.edit_content{ name: "content", placeholder: "Content"}
-      %p.post_tags= "tags: "
+      %br
       %input.edit_content{type: "text", name: "tags", placeholder: "Tags"}
       - if session[:admin] == :true
         %ul.post_edit
-          %li
+          %li.post_edit
             %button.btn{type: "submit"}
               Create
-          %li
+          %li.post_edit
             %a{href: "/posts"}
               Cancel

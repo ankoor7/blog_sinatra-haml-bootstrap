@@ -1,0 +1,105 @@
+/* apply a natural box layout model to all elements */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+ul {
+  margin: 0px;
+}
+
+#page   {
+  min-width: 550px;
+  width: 80%;
+  max-width:  800px;
+  margin:auto;
+  padding: 0px 40px 80px 40px;
+  border-radius: 0px 0px 7px 7px;
+  font-family: 'Bad Script', cursive, serif;
+}
+
+body  {
+  background: url(/img/background.jpg);
+  background-size: cover;
+}
+
+#heading {
+  text-indent: -9999px;
+  display:none;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus, a:hover {
+  color: #07662F;
+  text-decoration: none;
+}
+
+.post {
+  background: rgba(255,255,255,0.6);
+  border-radius: 5px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  padding: 5px 20px 20px 20px;
+}
+
+.post_body, .post_footer  {
+  margin-left: 50px;
+}
+
+.edit_body {
+  padding-left: 50px;
+  padding-top:  20px;
+}
+
+textarea.edit_content {
+  height: 100px;
+  width: 90%;
+}
+
+.post_title {
+  float:left;
+}
+
+.post_admin_menu  {
+  float:  left;
+  margin-left:  50px;
+  valign: bottom;
+}
+
+.post_admin_menu li {
+  display: inline-block;
+  margin-right: 20px;
+  margin-top: 25px;
+
+}
+
+.post_date  {
+  float:left;
+}
+
+.post_tags  {
+  float:left;
+  margin-left: 20px;
+}
+.tags_list ul  {
+  float:left;
+}
+.tags_list li {
+  display:inline-block;
+}
+
+ul .post_edit {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}

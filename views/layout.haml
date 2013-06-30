@@ -2,41 +2,41 @@
 %html
   %head
     %link{href: "/css/bootstrap.css", :type => "text/css", :rel => "stylesheet"}
+    %link{href: "/css/style.css", :type => "text/css", :rel => "stylesheet"}
+    %link{href: 'http://fonts.googleapis.com/css?family=Bad+Script', rel:'stylesheet', type:'text/css'}
     %title  Blog
 
   %body
-
-    %div#header
-      %div.navbar
-        %div.navbar-inner
-          %a.brand{href: '/posts'}
-            My blog
-          - if session[:admin] == :true
-            %ul.nav
-              %li
-                %a{href: "/new_post"}
-                  %i{class: "icon-plus"}
-
-          - if session[:admin] == :true
-            %form.navbar-form.pull-right{name: "logout",method: "post", action: "/admin_logout"}
-              %input{type: "hidden", value: "#{@params['post_id']}", name: "post_id"}
-              %button.btn{type: "submit"}
-                Logout
-          - else
-            %form.navbar-form.pull-right{name: "login",method: "post", action: "/admin_connect"}
-              %input.span2{type: "text", placeholder: "Username", name: "username"}
-              %input.span2.input-small{ type: "password", placeholder: "Password", name: "password"}
-              %input{type: "hidden", value: "#{@params['post_id']}", name: "post_id"}
-                %button.btn{type: "submit"}
-                  Login
-
-      %h1.my_class#my_id My blog
-
     %div#page
-      - if @message != nil
-        %div.alert
-          %button.close{type:"button", "data-dismiss" =>"alert"} &times;
-          = @message
-      =yield
+      %div#header
+        %div.navbar.navbar-inverse
+          %div.navbar-inner
+            %a.brand{href: '/posts'}
+              My blog
+            - if session[:admin] == :true
+              %form.navbar-form.pull-right{name: "logout",method: "post", action: "/admin_logout"}
+                %input{type: "hidden", value: "#{@params['post_id']}", name: "post_id"}
+                %button.btn.btn-inverse{type: "submit"}
+                  Logout
+              %ul.nav.pull-right
+                %li
+                  %a{href: "/new_post"}
+                    %i{class: "icon-plus icon-white"}
+            - else
+              %form.navbar-form.pull-right{name: "login",method: "post", action: "/admin_connect"}
+                %input.span2{type: "text", placeholder: "Username", name: "username"}
+                %input.span2.input-small{ type: "password", placeholder: "Password", name: "password"}
+                %input{type: "hidden", value: "#{@params['post_id']}", name: "post_id"}
+                  %button.btn{type: "submit"}
+                    Login
 
-    %footer
+        %h1#heading My blog
+
+      %div#content
+        - if @message != nil
+          %div.alert.alert-info
+            %button.close{type:"button", "data-dismiss" =>"alert"} &times;
+            = @message
+        =yield
+
+      %footer
