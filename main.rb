@@ -43,10 +43,10 @@ end
 post '/admin_connect' do
   if @params['username'] == 'admin' and @params['password'] == 'password'
     session[:admin] = :true
-    @message = "Login_successful"
+    @message = "Login%20successful"
   else
     session[:admin] = :false
-    @message = "Login_unsuccessful"
+    @message = "Login%20unsuccessful"
   end
   if @params['post_id'] != nil
     redirect "/posts?message=#{@message}&post_id=#{@params['post_id']}"
@@ -66,13 +66,6 @@ post '/admin_logout' do
 end
 
 
-# get'/admin' do
-#   unless session[:admin] == true
-
-# end
-
-
-
 get '/posts' do
   # @author_id = params["author_id"]
   # @tag = params["tag"]
@@ -90,23 +83,20 @@ get '/posts' do
   haml  :posts
 end
 
-get '/add_new' do
+get '/new_post' do
 
 # Goto Form to add data
 
-haml  :add_new
+haml  :new_post
 end
 
 
 
-# post '/add_new' do
-#   @title = params[:title]
-#   @content = params[:content]
-
-#   # insert sql database - post details
-
-#   redirect to ('/')
-# end
+post '/create' do
+  @title, @content, @tags = @params["title"], @params["content"], @params["tags"]
+  add_new(@title, @content, @tags)
+  redirect to ('/posts')
+end
 
 get '/edit' do
 # Get details of post_id
@@ -118,48 +108,19 @@ get '/edit' do
   haml :edit
 end
 
-post '/edit' do
-@post_id = params["post_id"]
-
-  redirect to ('/')
+post '/update' do
+  @post_id, @title, @content, @tags = @params["post_id"], @params["title"], @params["content"], @params["tags"]
+  update(@post_id, @title, @content, @tags)
+  redirect to ("/posts?post_id=#{@params['post_id']}")
 end
 
 
-# post '/delete' do
-#   @post_id = params["post_id"]
-#   sql = "select title from posts where id = #{@post_id}"
-#   @deleted_post_title = run_sql('sql').first['title']
-
-#   sql = "delete from posts where id = #{@post_id}"
-#   run_sql('sql').first['title']
-
-#   @deleted_post_title
-#   redirect to ('/') :locals => {:message => @deleted_post_title}
-# end
+get '/delete' do
+  @post_id = params["post_id"]
+  sql = "delete from posts where id = #{@post_id}"
+  run_sql(sql)
+  @message = "Post%20deleted."
+  redirect to ("/posts?message=#{@message}")
+end
 
 
-
-#########################
-# post "/posts" do
-# end
-
-
-# get "/post/:id" do
-# end
-
-
-# get "post/:id/edit" do
-# end
-
-
-
-# before do
-#   if environment == production
-#     @db = PG.connect(dbname: "sinatra_blog_production")
-#   else
-#     @db = PG.connect(dbname: "sinatra_blog")
-# end
-
-# after do
-#   @db.close
-# end

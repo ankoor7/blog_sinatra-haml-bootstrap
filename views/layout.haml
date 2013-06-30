@@ -2,16 +2,21 @@
 %html
   %head
     %link{href: "/css/bootstrap.css", :type => "text/css", :rel => "stylesheet"}
-    %link{href: "/css/bootstrap-responsive.css", :type => "text/css", :rel => "stylesheet"}
-    %title  HTML is old
+    %title  Blog
 
   %body
 
     %div#header
       %div.navbar
         %div.navbar-inner
-          %a.brand{href: '#'}
-            Another blog
+          %a.brand{href: '/posts'}
+            My blog
+          - if session[:admin] == :true
+            %ul.nav
+              %li
+                %a{href: "/new_post"}
+                  %i{class: "icon-plus"}
+
           - if session[:admin] == :true
             %form.navbar-form.pull-right{name: "logout",method: "post", action: "/admin_logout"}
               %input{type: "hidden", value: "#{@params['post_id']}", name: "post_id"}
@@ -26,11 +31,12 @@
                   Login
 
       %h1.my_class#my_id My blog
-      / ADD MENU HERE
 
-    / %h2.message= @message
     %div#page
+      - if @message != nil
+        %div.alert
+          %button.close{type:"button", "data-dismiss" =>"alert"} &times;
+          = @message
       =yield
 
     %footer
-    %script{src: "/js/bootstrap.min.js"}

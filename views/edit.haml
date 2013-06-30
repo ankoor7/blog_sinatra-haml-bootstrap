@@ -1,17 +1,17 @@
 - @results.each do |result|
   %div.post
-    %div.post_header
-      %input.edit_content{type: "text", name: "title", value: "#{result['title']}"}
-    %div.post_body
-      %textarea.edit_content{ name: "content"}= "#{result['content']}"
-    %div.post_footer
-      %p.post_tags= "tags: "
-      %input.edit_content{type: "text", name: "tags", value: "#{result['tags']}"}
-      - if session[:admin] == :true
-        %ul.post_edit
-          %li
-            %a{href: "/edit?post_id=#{result['id']}"}
-              Update
-          %li
-            %a{href: "/posts"}
-              Cancel
+    %div.edit_body
+      %form{name: "update", method: "post", action: "/update"}
+        %input.edit_content{type: "text", name: "title", value: "#{result['title']}"}
+        %textarea.edit_content{ name: "content"}= "#{result['content']}"
+        %p.post_tags= "tags: "
+        %input.edit_content{type: "text", name: "tags", value: "#{result['tags']}"}
+        %input{type: "hidden", value: "#{@params['post_id']}", name: "post_id"}
+        - if session[:admin] == :true
+          %ul.post_edit
+            %li
+              %button.btn{type: "submit"}
+                Update
+            %li
+              %a{href: "/posts"}
+                Cancel
