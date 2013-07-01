@@ -25,6 +25,7 @@ def add_new(title, content, *tags)
   @tags = tags.join(', ')
   sql = "insert into posts (title, content, creation_date, tags) values ('#{@title}', '#{@content}', now(), '#{@tags}');"
   run_sql(sql)
+
 end
 
 def delete(task_id)
@@ -116,11 +117,15 @@ end
 
 
 get '/delete' do
-  @post_id = params["post_id"]
-  sql = "delete from posts where id = #{@post_id}"
-  run_sql(sql)
-  @message = "Post%20deleted."
-  redirect to ("/posts?message=#{@message}")
+  if session[:admin] == :true
+    @post_id = params["post_id"]
+    sql = "delete from posts where id = #{@post_id}"
+    run_sql(sql)
+    @message = "Post%20deleted."
+    redirect to ("/posts?message=#{@message}")
+  else
+    redirect to ("/posts?message=Please%20login%20to%20delete%20posts.")
+  end
 end
 
 
